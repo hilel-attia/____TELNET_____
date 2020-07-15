@@ -1,0 +1,16 @@
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\appsettings.Development.json
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\appsettings.json
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\ProcessusFormation.deps.json
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\ProcessusFormation.runtimeconfig.json
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\ProcessusFormation.runtimeconfig.dev.json
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\ProcessusFormation.dll
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\bin\Debug\netcoreapp2.1\ProcessusFormation.pdb
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.csprojAssemblyReference.cache
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.RazorAssemblyInfo.cache
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.RazorAssemblyInfo.cs
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.AssemblyInfoInputs.cache
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.AssemblyInfo.cs
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.RazorTargetAssemblyInfo.cache
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.dll
+C:\Users\LENOVO\source\repos\ProcessusFormation\ProcessusFormation\obj\Debug\netcoreapp2.1\ProcessusFormation.pdb
