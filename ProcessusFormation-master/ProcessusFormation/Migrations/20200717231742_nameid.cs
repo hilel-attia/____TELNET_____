@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProcessusFormation.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class nameid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,7 +51,7 @@ namespace ProcessusFormation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BesoinCollecteModel",
+                name: "BesoinCollectes",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -71,27 +71,46 @@ namespace ProcessusFormation.Migrations
                     Cout_Totale_previsionnel = table.Column<float>(nullable: false),
                     Imputation = table.Column<float>(nullable: false),
                     Bareme_TFP = table.Column<string>(nullable: false),
-                    Montant_recuperer = table.Column<float>(nullable: false)
+                    Montant_recuperer = table.Column<float>(nullable: false),
+                    nom_formateur = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BesoinCollecteModel", x => x.Id);
+                    table.PrimaryKey("PK_BesoinCollectes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BesoinFormations",
+                name: "BesoinFormationModels",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(150)", nullable: false),
-                    Activite = table.Column<string>(nullable: false),
-                    Intitule_Formation = table.Column<string>(nullable: false),
-                    Priorite = table.Column<string>(nullable: false),
-                    Justification_du_besoin = table.Column<string>(nullable: false),
-                    Nombre_de_participants = table.Column<string>(nullable: false)
+                    BesoinFormationId = table.Column<string>(type: "nvarchar(150)", nullable: false),
+                    Activite = table.Column<string>(nullable: true),
+                    Intitule_Formation = table.Column<string>(nullable: true),
+                    Priorite = table.Column<string>(nullable: true),
+                    Justification_du_besoin = table.Column<string>(nullable: true),
+                    Nombre_de_participants = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BesoinFormations", x => x.Id);
+                    table.PrimaryKey("PK_BesoinFormationModels", x => x.BesoinFormationId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CompetenceEvaluationFroids",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IdEvaluation = table.Column<int>(nullable: false),
+                    Competence = table.Column<string>(nullable: true),
+                    Niveau_actuel = table.Column<int>(nullable: false),
+                    Degre = table.Column<string>(nullable: true),
+                    Niveau_acquis = table.Column<int>(nullable: false),
+                    Critere10 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompetenceEvaluationFroids", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,36 +127,19 @@ namespace ProcessusFormation.Migrations
                 {
                     table.PrimaryKey("PK_Competences", x => x.Id);
                 });
+
             migrationBuilder.CreateTable(
-              name: "Metiers",
-              columns: table => new
-              {
-                  MetierId = table.Column<int>(nullable: false)
-                      .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                  DomaineId = table.Column<int>(nullable: false),
-                  UserId = table.Column<string>(nullable: false),
-                  LabelId = table.Column<int>(nullable: false),
-                  Niveau = table.Column<int>(nullable: true)
-              },
-              constraints: table =>
-              {
-                  table.PrimaryKey("PK_Metiers", x => x.MetierId);
-              });
-            migrationBuilder.CreateTable(
-            name: "Intermidiaires",
-            columns: table => new
-            {
-                Id = table.Column<int>(nullable: false)
-                    .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                ParticipantId = table.Column<string>(nullable: false),
-                DirectActivId = table.Column<string>(nullable: false),
-                EvaluatFroidId = table.Column<int>(nullable: false),
-             
-            },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_Intermidiaires", x => x.Id);
-            });
+                name: "Domaines",
+                columns: table => new
+                {
+                    DomaineId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NomDomaine = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Domaines", x => x.DomaineId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "EvaluationChauds",
@@ -157,22 +159,55 @@ namespace ProcessusFormation.Migrations
                     Matricule = table.Column<string>(nullable: true),
                     Fonction = table.Column<string>(nullable: true),
                     Direction = table.Column<string>(nullable: true),
+                    QuestionA = table.Column<string>(nullable: true),
+                    Lequelles = table.Column<string>(nullable: true),
+                    PourqouiA = table.Column<string>(nullable: true),
+                    PourqouiB = table.Column<string>(nullable: true),
+                    QuestionB = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    QuestionC = table.Column<string>(nullable: true),
                     Score_Evaluation = table.Column<int>(nullable: false),
                     Score_Satisfaction = table.Column<int>(nullable: false),
                     Commentaire1 = table.Column<string>(nullable: true),
-                    Commentaire3 = table.Column<string>(nullable: true),
-                    QuestionA = table.Column<string>(nullable: true),
-                    QuestionB = table.Column<string>(nullable: true),
-                    QuestionC = table.Column<string>(nullable: true),
-                    Comment = table.Column<string>(nullable: true),
-                    PourqouiA = table.Column<string>(nullable: true),
-                    PourqouiB = table.Column<string>(nullable: true),
-                    Lequelles = table.Column<string>(nullable: true),
-                    Commentaire2 = table.Column<string>(nullable: true)
+                    Commentaire2 = table.Column<string>(nullable: true),
+                    Commentaire3 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EvaluationChauds", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EvaluationFroidParticipants",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Theme = table.Column<string>(nullable: true),
+                    Lieu = table.Column<string>(nullable: true),
+                    Organisme = table.Column<string>(nullable: true),
+                    Formateur = table.Column<string>(nullable: true),
+                    Date_Debut = table.Column<DateTime>(nullable: false),
+                    Date_Fin = table.Column<DateTime>(nullable: false),
+                    Nom_Participant = table.Column<string>(nullable: true),
+                    Prenom_Participant = table.Column<string>(nullable: true),
+                    Matricule = table.Column<string>(nullable: true),
+                    Fonction = table.Column<string>(nullable: true),
+                    Direction = table.Column<string>(nullable: true),
+                    Date_Evaluation_Froid = table.Column<DateTime>(nullable: false),
+                    question_A = table.Column<string>(nullable: true),
+                    question_B = table.Column<string>(nullable: true),
+                    question_C = table.Column<string>(nullable: true),
+                    Lesquelles = table.Column<string>(nullable: true),
+                    PourquoiA = table.Column<string>(nullable: true),
+                    Autres1 = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    PourquoiB = table.Column<string>(nullable: true),
+                    Commentaire1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EvaluationFroidParticipants", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -205,118 +240,80 @@ namespace ProcessusFormation.Migrations
                     Critere1 = table.Column<string>(nullable: true),
                     Critere2 = table.Column<string>(nullable: true),
                     Critere3 = table.Column<string>(nullable: true),
-                    Critere9 = table.Column<string>(nullable: true),
                     Critere4 = table.Column<string>(nullable: true),
                     Critere5 = table.Column<string>(nullable: true),
                     Critere6 = table.Column<string>(nullable: true),
                     Critere7 = table.Column<string>(nullable: true),
                     Critere8 = table.Column<string>(nullable: true),
-                    Autres2 = table.Column<string>(nullable: true)
+                    Critere9 = table.Column<string>(nullable: true),
+                    Autres2 = table.Column<string>(nullable: true),
+                    Sinon = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EvaluationFroids", x => x.Id);
                 });
 
-
             migrationBuilder.CreateTable(
-                           name: "EvaluationFroidParticipants",
-                           columns: table => new
-                           {
-                               Id = table.Column<int>(nullable: false)
-                                   .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                               Theme = table.Column<string>(nullable: true),
-                               Lieu = table.Column<string>(nullable: true),
-                               Organisme = table.Column<string>(nullable: true),
-                               Formateur = table.Column<string>(nullable: true),
-                               Date_Debut = table.Column<DateTime>(nullable: false),
-                               Date_Fin = table.Column<DateTime>(nullable: false),
-                               Nom_Participant = table.Column<string>(nullable: true),
-                               Prenom_Participant = table.Column<string>(nullable: true),
-                               Matricule = table.Column<string>(nullable: true),
-                               Fonction = table.Column<string>(nullable: true),
-                               Direction = table.Column<string>(nullable: true),
-                               Date_Evaluation_Froid = table.Column<DateTime>(nullable: false),
-                               question_A = table.Column<string>(nullable: true),
-                               question_B = table.Column<string>(nullable: true),
-                               question_C = table.Column<string>(nullable: true),
-                               Lesquelles = table.Column<string>(nullable: true),
-                               PourquoiA = table.Column<string>(nullable: true),
-                               Autres1 = table.Column<string>(nullable: true),
-                               Comment = table.Column<string>(nullable: true),
-                               PourquoiB = table.Column<string>(nullable: true),
-                               Commentaire1 = table.Column<string>(nullable: true)
-                           },
-                           constraints: table =>
-                           {
-                               table.PrimaryKey("PK_EvaluationFroidParticipants", x => x.Id);
-                           });
-
-
-
-
-
-
-
-
-
-            migrationBuilder.CreateTable(
-                name: "Participants",
+                name: "Formateurs",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(150)", nullable: false),
-                    Nom = table.Column<string>(nullable: false),
-                    Prenom = table.Column<string>(nullable: false)
-                   
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Theme = table.Column<string>(nullable: true),
+                    Organisme_prestataire = table.Column<string>(nullable: true),
+                    Nom_Formateur = table.Column<string>(nullable: true),
+                    Period = table.Column<string>(nullable: true),
+                    Score = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Participants", x => x.Id);
+                    table.PrimaryKey("PK_Formateurs", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Intermidiaires",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ParticipantId = table.Column<string>(nullable: true),
+                    DirectActivId = table.Column<string>(nullable: true),
+                    EvaluatFroidId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Intermidiaires", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
-             name: "Domaines",
-             columns: table => new
-             {
-                 DomaineId = table.Column<int>(nullable: false),
-                 NomDomaine = table.Column<string>(nullable: false),
-               
-
-             },
-             constraints: table =>
-             {
-                 table.PrimaryKey("PK_Domaines", x => x.DomaineId);
-
-             });
-
-
+                name: "Metiers",
+                columns: table => new
+                {
+                    MetierId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DomaineId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    LabelId = table.Column<int>(nullable: false),
+                    Niveau = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Metiers", x => x.MetierId);
+                });
 
             migrationBuilder.CreateTable(
-          name: "Labels",
-          columns: table => new
-          {
-              LabelId = table.Column<int>(nullable: false),
-              NomLabel = table.Column<string>(nullable: false),
-              Niveau = table.Column<int>(nullable: false),
-              DomaineId = table.Column<int>(nullable: false),
-
-
-          },
-          constraints: table =>
-          {
-              table.PrimaryKey("PK_Domaines", x => x.LabelId);
-
-              table.ForeignKey(
-                       name: "FK_Labels_Domaines_DomaineId",
-                       column: x => x.DomaineId,
-                       principalTable: "Domaines",
-                       principalColumn: "DomaineId",
-                       onDelete: ReferentialAction.Cascade);
-          
-        });
-
-
+                name: "ParticipantModels",
+                columns: table => new
+                {
+                    ParticipantId = table.Column<string>(type: "nvarchar(150)", nullable: false),
+                    Nom = table.Column<string>(nullable: true),
+                    Prenom = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ParticipantModels", x => x.ParticipantId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "SuiviFormations",
@@ -336,27 +333,6 @@ namespace ProcessusFormation.Migrations
                 {
                     table.PrimaryKey("PK_SuiviFormations", x => x.Id);
                 });
-
-
-
-            migrationBuilder.CreateTable(
-               name: "CompetenceEvaluationFroids",
-               columns: table => new
-               {
-                   Id = table.Column<int>(nullable: false)
-                       .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                   IdEvaluation = table.Column<int>(nullable: true),
-                   Competence = table.Column<string>(nullable: false),
-                   Niveau_actuel = table.Column<int>(nullable: false),
-                   Degre = table.Column<string>(nullable: false),
-                   Niveau_acquis = table.Column<int>(nullable: false)
-                   
-               },
-               constraints: table =>
-               {
-                   table.PrimaryKey("PK_CompetenceEvaluationFroids", x => x.Id);
-               });
-
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -465,57 +441,80 @@ namespace ProcessusFormation.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ParticipantToFormations",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    IdFormation = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ParticipantToFormations", x => new { x.IdFormation, x.Id });
+                    table.ForeignKey(
+                        name: "FK_ParticipantToFormations_AspNetUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ParticipantToFormations_BesoinFormationModels_IdFormation",
+                        column: x => x.IdFormation,
+                        principalTable: "BesoinFormationModels",
+                        principalColumn: "BesoinFormationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Labels",
+                columns: table => new
+                {
+                    LabelId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NomLabel = table.Column<string>(nullable: true),
+                    Niveau = table.Column<int>(nullable: false),
+                    DomaineId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Labels", x => x.LabelId);
+                    table.ForeignKey(
+                        name: "FK_Labels_Domaines_DomaineId",
+                        column: x => x.DomaineId,
+                        principalTable: "Domaines",
+                        principalColumn: "DomaineId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ParticipantFormation",
                 columns: table => new
                 {
                     ParticipantId = table.Column<string>(nullable: false),
-                    BesoinFormationId = table.Column<string>(nullable: false)
+                    BesoinFormationId = table.Column<string>(nullable: false),
+                    ParticipantModelParticipantId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ParticipantFormation", x => new { x.BesoinFormationId, x.ParticipantId });
                     table.ForeignKey(
-                        name: "FK_ParticipantFormation_BesoinFormations_BesoinFormationId",
+                        name: "FK_ParticipantFormation_BesoinFormationModels_BesoinFormationId",
                         column: x => x.BesoinFormationId,
-                        principalTable: "BesoinFormations",
-                        principalColumn: "Id",
+                        principalTable: "BesoinFormationModels",
+                        principalColumn: "BesoinFormationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ParticipantFormation_Participants_ParticipantId",
+                        name: "FK_ParticipantFormation_ParticipantModels_ParticipantId",
                         column: x => x.ParticipantId,
-                        principalTable: "Participants",
-                        principalColumn: "Id",
+                        principalTable: "ParticipantModels",
+                        principalColumn: "ParticipantId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ParticipantFormation_ParticipantModels_ParticipantModelParticipantId",
+                        column: x => x.ParticipantModelParticipantId,
+                        principalTable: "ParticipantModels",
+                        principalColumn: "ParticipantId",
+                        onDelete: ReferentialAction.Restrict);
                 });
-
-
-
-
-            migrationBuilder.CreateTable(
-             name: "ParticipantToFormations",
-             columns: table => new
-             {
-                 Id = table.Column<string>(nullable: false),
-                 IdFormation = table.Column<string>(nullable: false)
-             },
-             constraints: table =>
-             {
-                 table.PrimaryKey("PK_ParticipantToFormations", x => new { x.IdFormation, x.Id });
-                 table.ForeignKey(
-                     name: "FK_ParticipantToFormations_BesoinFormations_IdFormation",
-                     column: x => x.IdFormation,
-                     principalTable: "BesoinFormations",
-                     principalColumn: "Id",
-                     onDelete: ReferentialAction.Cascade);
-                 table.ForeignKey(
-                     name: "FK_ParticipantToFormations_ApplicationUsers_Id",
-                     column: x => x.Id,
-                     principalTable: "AspNetUsers",
-                     principalColumn: "Id",
-                     onDelete: ReferentialAction.Cascade);
-             });
-
-
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -557,14 +556,23 @@ namespace ProcessusFormation.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Labels_DomaineId",
+                table: "Labels",
+                column: "DomaineId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ParticipantFormation_ParticipantId",
                 table: "ParticipantFormation",
                 column: "ParticipantId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_ParticipantFormation_ParticipantModelParticipantId",
+                table: "ParticipantFormation",
+                column: "ParticipantModelParticipantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ParticipantToFormations_Id", 
-                table: "AspNetUsers",
+                name: "IX_ParticipantToFormations_Id",
+                table: "ParticipantToFormations",
                 column: "Id");
         }
 
@@ -586,26 +594,40 @@ namespace ProcessusFormation.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BesoinCollecteModel");
+                name: "BesoinCollectes");
+
+            migrationBuilder.DropTable(
+                name: "CompetenceEvaluationFroids");
 
             migrationBuilder.DropTable(
                 name: "Competences");
 
             migrationBuilder.DropTable(
                 name: "EvaluationChauds");
+
             migrationBuilder.DropTable(
-             name: "Domaines");
-            migrationBuilder.DropTable(
-             name: "Labels");
+                name: "EvaluationFroidParticipants");
 
             migrationBuilder.DropTable(
                 name: "EvaluationFroids");
 
             migrationBuilder.DropTable(
+                name: "Formateurs");
+
+            migrationBuilder.DropTable(
+                name: "Intermidiaires");
+
+            migrationBuilder.DropTable(
+                name: "Labels");
+
+            migrationBuilder.DropTable(
+                name: "Metiers");
+
+            migrationBuilder.DropTable(
                 name: "ParticipantFormation");
 
             migrationBuilder.DropTable(
-         name: "ParticipantToFormation");
+                name: "ParticipantToFormations");
 
             migrationBuilder.DropTable(
                 name: "SuiviFormations");
@@ -614,13 +636,16 @@ namespace ProcessusFormation.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Domaines");
+
+            migrationBuilder.DropTable(
+                name: "ParticipantModels");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "BesoinFormations");
-
-            migrationBuilder.DropTable(
-                name: "Participants");
+                name: "BesoinFormationModels");
         }
     }
 }

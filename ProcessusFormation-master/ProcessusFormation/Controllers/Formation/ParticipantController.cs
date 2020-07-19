@@ -42,7 +42,7 @@ namespace ProcessusFormation.Controllers.Formation
                
             };
 
-            var result = await _context.Participants.AddAsync(participantss);
+            var result = await _context.ParticipantModels.AddAsync(participantss);
             _context.SaveChanges();
             return Ok(new { });
 
@@ -56,7 +56,7 @@ namespace ProcessusFormation.Controllers.Formation
         public async Task<ActionResult> AddParticipantToFormationAsync(string id, string ParticipantId)
         {
           // Name = "hana";
-            var Formation = await _context.BesoinFormations.FindAsync(id);
+            var Formation = await _context.BesoinFormationModels.FindAsync(id);
            // var part = await _context.Participants.FindAsync(Name);
             //ici bech nzid participant ala formation d'identifiant id
            
@@ -78,7 +78,7 @@ namespace ProcessusFormation.Controllers.Formation
         [HttpGet]
         [Route("GetFormationToParticipant/{id}")]
         public IEnumerable<Object> GetListePartcipant(string id) {
-            var result =  _context.BesoinFormations.Find(id);
+            var result =  _context.BesoinFormationModels.Find(id);
             var exist = result.ParticipantFormations.Select(x => x.ParticipantId).ToList();
           
                 return exist;
@@ -97,7 +97,7 @@ namespace ProcessusFormation.Controllers.Formation
 
             // var user = await _context.ApplicationUsers.FindAsync(id);
             // Console.WriteLine(id);
-            var Participant = _context.Participants;
+            var Participant = _context.ParticipantModels;
             if (Participant == null)
             {
                 return (null);

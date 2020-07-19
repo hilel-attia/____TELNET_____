@@ -47,14 +47,15 @@ namespace ProcessusFormation.Controllers.Formation
 
             };
             //icij'ajoute une nouvelle formation et au meme temps je paaser l'id de cette formation comme un parametre ala fonction GetBesoinFormation()
-            await _context.BesoinFormations.AddAsync(BesoinFormation);
+            await _context.BesoinFormationModels.AddAsync(BesoinFormation);
             _context.SaveChanges();
-             var application = await _context.BesoinFormations.FindAsync(BesoinFormation.Id);
+             var application = await _context.BesoinFormationModels.FindAsync(BesoinFormation.BesoinFormationId);
             //Console.WriteLine(application.Id);
            // await GetBesoinFormation(application.Id);
-           MyGlobals.key = BesoinFormation.Id;
-            
-            return Ok(new { MyGlobals.key });
+          // MyGlobals.key = BesoinFormation.Id;
+
+            //return Ok(new { MyGlobals.key });
+            return Ok(BesoinFormation.BesoinFormationId);
 
         }
 
@@ -68,7 +69,7 @@ namespace ProcessusFormation.Controllers.Formation
         public async Task<ActionResult> AddParticipantToFormationAsync(string id, string Id)
         {
             // Name = "hana";
-            var Formation = await _context.BesoinFormations.FindAsync(id);
+            var Formation = await _context.BesoinFormationModels.FindAsync(id);
             // var part = await _context.Participants.FindAsync(Name);
             //ici bech nzid participant ala formation d'identifiant id
 
@@ -111,7 +112,7 @@ namespace ProcessusFormation.Controllers.Formation
             {
                 return Ok(new { });
             }
-            var BesoinFormation = await _context.BesoinFormations.FindAsync(MyGlobals.key);
+            var BesoinFormation = await _context.BesoinFormationModels.FindAsync(MyGlobals.key);
             if (BesoinFormation == null)
             {
                 return NotFound();
@@ -132,7 +133,7 @@ namespace ProcessusFormation.Controllers.Formation
 
             // var user = await _context.ApplicationUsers.FindAsync(id);
             // Console.WriteLine(id);
-            var BesoinFormation = _context.BesoinFormations;
+            var BesoinFormation = _context.BesoinFormationModels;
             if (BesoinFormation == null)
             {
                 return (null);

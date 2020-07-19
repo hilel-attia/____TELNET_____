@@ -9,8 +9,11 @@ namespace ProcessusFormation.Models.Formation
     public class ParticipantFormation  
     {
         public string ParticipantId { get; set; }
+        public ParticipantModel ParticipantModel { get; set; }
+
+
+
         public string BesoinFormationId { get; set; }
-        public ParticipantModel Participant { get; set; }
-        public BesoinFormationModel BesoinFormation { get; set; }
+        public BesoinFormationModel BesoinFormationModel { get; set; }
     }
 }

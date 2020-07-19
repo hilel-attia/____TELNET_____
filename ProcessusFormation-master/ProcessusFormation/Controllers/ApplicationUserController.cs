@@ -79,7 +79,22 @@ namespace ProcessusFormation.Controllers
                 };
             }
         }
+        // get allusers pour waiting registration
+        [HttpGet]
+        [Route("All")]
+        public IEnumerable<ApplicationUser> GetUser()
+        {
 
+            return _userManager.Users.ToList();
+            //foreach (ApplicationUser element in user)
+            //{
+            //    if (element.Valide == "false")
+            //    {
+            //        yield return (element);
+
+            //    };
+            //}
+        }
 
         [HttpGet]
         [Route("AllUsersTrue")]
@@ -100,7 +115,7 @@ namespace ProcessusFormation.Controllers
         [HttpGet("{id}")]
         public async Task<object> GetUser([FromRoute] string id)
         {
-           
+
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
             if (applicationUser == null)
             {
@@ -114,7 +129,7 @@ namespace ProcessusFormation.Controllers
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginModel model)
-        { 
+        {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
@@ -182,21 +197,22 @@ namespace ProcessusFormation.Controllers
         [Route("EditRoleUser/{id}")]
         public async Task<ActionResult> CreateRoleAsync(string id, string RoleName)
         {
-            var applicationUser =  await _userManager.FindByIdAsync(id);
-            
-            var result = await  _userManager.AddToRoleAsync(applicationUser,RoleName);
-            
-           // var result = await _userManager.AddToNormalizedRoleName(applicationUser, RoleName);
-        //    normalizedRoleName
+            var applicationUser = await _userManager.FindByIdAsync(id);
+
+            var result = await _userManager.AddToRoleAsync(applicationUser, RoleName);
+
+            //var result = await _userManager.AddToNormalizedRoleName(applicationUser, RoleName);
+           // var result = await _userManager.UpdateSecurityStampAsync(id);
+            //   normalizedRoleName
             return Ok(result);
 
         }
-     //  public string role = "admin";
+        //  public string role = "admin";
         [HttpPost]
         [Route("EditRoleToUser/{id}")]
-        public async Task<ActionResult> AttributRole(string id, ApplicationRole role )
+        public async Task<ActionResult> AttributRole(string id, ApplicationRole role)
         {
-           // string role = "admin";
+            // string role = "admin";
             var app = await _userManager.FindByIdAsync(id);
             app.Valide = "true";
             var approle = await _userManager.AddToRoleAsync(app, role.RoleName);
@@ -221,7 +237,7 @@ namespace ProcessusFormation.Controllers
         [Route("GetRole")]
         public IEnumerable<Object> GetAllRoles()
         {
-             var roles = _roleManager.Roles;
+            var roles = _roleManager.Roles;
             return (roles);
         }
 
@@ -234,7 +250,7 @@ namespace ProcessusFormation.Controllers
 
             var user = await _userManager.FindByIdAsync(id);
             var userRoles = await _userManager.GetRolesAsync(user);
-           // var roles = _roleManager.Roles;
+            // var roles = _roleManager.Roles;
             return (userRoles);
         }
 
@@ -246,7 +262,7 @@ namespace ProcessusFormation.Controllers
         {
 
             var user = await _userManager.FindByIdAsync(id);
-         //   var userRoles = await _userManager.GetRolesAsync(user);
+            //   var userRoles = await _userManager.GetRolesAsync(user);
             await _userManager.RemoveFromRoleAsync(user, model.Name);
             // var roles = _roleManager.Roles;
             return Ok();
@@ -259,7 +275,7 @@ namespace ProcessusFormation.Controllers
         [Route("Update")]
         public async Task<IActionResult> UpdateUsers(ApplicationUserModel model)
         {
-           
+
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
             var userRoles = await _userManager.GetRolesAsync(user);
             user.UserName = model.UserName;
@@ -269,6 +285,7 @@ namespace ProcessusFormation.Controllers
             var result = await _userManager.UpdateAsync(user);
             return Ok(result);
         }
-      
+
     }
 }
+
