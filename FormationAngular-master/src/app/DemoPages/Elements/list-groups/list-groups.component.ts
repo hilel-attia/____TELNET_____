@@ -67,21 +67,31 @@ export class ListGroupsComponent implements OnInit {
       console.log(item.id);
    
   }
+
   RegisterEtatFormation(){
-    console.log();
-    console.log();
-  
-    this.formation.PostEtatFormation().subscribe(
-      (res: any) => {
-        if (res.succeeded) {
-  // // this.formation.formModele.reset();
-     this.toastr.success('New user created!','Registration successful.');
-  //   // this.formation.refreshList();
+    /*this.formation.PostEtatFormation()
+    .subscribe( 
+      res => {
+        console.log("apres subscribe");
+        console.log("res",res)
+        this.toastr.success("Formation ajouté avec succées")
+        if (res) {
+         
+
+          // // this.formation.formModele.reset();
+          this.toastr.success('New user created!','Registration successful.');
+       // // this.formation.refreshList();
 
       } 
-    },
+    },err=>{
+      console.log(err)
+  })
 
-   );
+*/
+this.formation.registerFormation();
+
+
+   
    this.formation.formModele.reset();
    
   }

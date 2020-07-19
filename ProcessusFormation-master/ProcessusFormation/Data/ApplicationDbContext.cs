@@ -38,7 +38,7 @@ namespace ProcessusFormation.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ParticipantFormation>().HasKey(pt => new { pt.BesoinFormationId, pt.ParticipantId });
+            modelBuilder.Entity<ParticipantFormation>().HasKey(pt => pt.Id);
 
             modelBuilder.Entity<ParticipantFormation>()
                 .HasOne(pt => pt.BesoinFormationModel)
@@ -52,9 +52,18 @@ namespace ProcessusFormation.Data
 
 
 
-            modelBuilder.Entity<ParticipantToFormationModel>().HasKey(pt => new { pt.IdFormation, pt.Id });
-            modelBuilder.Entity<ParticipantToFormationModel>().HasOne(pt => pt.BesoinFormation).WithMany(pt => pt.ParticipantToFormations).HasForeignKey(pt => pt.IdFormation);
-            modelBuilder.Entity<ParticipantToFormationModel>().HasOne(pt => pt.ApplicationUsers).WithMany(pt => pt.ParticipantToFormations).HasForeignKey(pt => pt.Id);
+            modelBuilder.Entity<ParticipantToFormationModel>().HasKey(pt => new { pt.BesoinFormationId, pt.Id });
+
+            modelBuilder.Entity<ParticipantToFormationModel>()
+                .HasOne(pt => pt.BesoinFormation)
+                .WithMany(pt => pt.ParticipantToFormations)
+                .HasForeignKey(pt => pt.BesoinFormationId);
+
+
+            modelBuilder.Entity<ParticipantToFormationModel>()
+                .HasOne(pt => pt.ApplicationUsers)
+                .WithMany(pt => pt.ParticipantToFormations)
+                .HasForeignKey(pt => pt.Id);
 
 
             modelBuilder.Entity<DomaineModel>()

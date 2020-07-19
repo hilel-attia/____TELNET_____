@@ -76,7 +76,7 @@ namespace ProcessusFormation.Controllers.Formation
             Formation.ParticipantToFormations = new List<ParticipantToFormationModel>
            {
               new ParticipantToFormationModel()
-            {    IdFormation=id,
+            {    BesoinFormationId=id,
                 Id = Id
            } };
             _context.SaveChanges();

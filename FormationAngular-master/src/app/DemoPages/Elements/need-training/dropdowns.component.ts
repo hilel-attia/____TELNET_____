@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormationService } from './../../shared/formation.service';
-import { NgForm,FormGroup, FormControl } from '@angular/forms';
+import { NgForm,FormGroup, FormControl, CheckboxControlValueAccessor } from '@angular/forms';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from 'node_modules/ngx-filter-pipe';
 import { NotificationService } from '../../shared/Notification.service';
@@ -114,9 +114,18 @@ searchFromArray(arr, regex) {
   Activite: any = [];
   Priorite: any = [];
   SelectedParticipant: any = [];
+  participants:any = [];
   ngOnInit() {
    // this.notification.getAllUsersTrue();
-    this.formation.GetAllParticipant();
+    this.formation.GetAllParticipant()
+    .subscribe(res=>{
+      this.participants = res
+      console.clear()
+      console.log("this.participants : ",this.participants);
+    }
+   )
+
+
     this.formation.getAllFormation();
     this.formation.GetAllBesoinCollecte();
     this.resetForm();
@@ -146,28 +155,31 @@ searchFromArray(arr, regex) {
        form.form.reset();
      this.formation.formData1 = {
        id:'',
-       nom:'',
+       Nom:'',
       prenom:'',
      
      }
    }
-   ParticipantChange(event) {
-    let index = this.SelectedParticipant.indexOf(event.target.value);
+   ParticipantChange(participant) {
+    let index = this.SelectedParticipant.indexOf(participant.participantId);
+    console.log("event.target.value",participant.participantId)
     console.log(index);
     if (index == -1) {
-      this.SelectedParticipant.push(event.target.value);
+      this.SelectedParticipant.push(participant.participantId);
     } else {
       this.SelectedParticipant.splice(index, 1);
     }
     console.log(this.SelectedParticipant);
+    console.log("event : 9*******",participant)
   }
+
    onSubmitParticipant(){
     console.log();
     console.log(this.SelectedParticipant);
     for (var val of this.SelectedParticipant) {
-    this.formation.registerParticipant(val).subscribe(
+    this.formation.PostRegisterParticipant(this.IDF,val).subscribe(
       (res: any) => {
-        if (res.succeeded) {
+        if (res && res.succeeded) {
   // // this.formation.formModele.reset();
      this.toastr.success('New user created!','Registration successful.');
   //   // this.formation.refreshList();
@@ -179,13 +191,24 @@ searchFromArray(arr, regex) {
    this.formation.formModele.reset();
    }
 
-
+IDF : any;
   onSubmit() {
     console.log();
     this.formation.registerFormation().subscribe(
       (res: any) => {
-        if (res.succeeded) {
+        
+        console.log("res",res.besoinFormationId)
+        this.IDF=res.besoinFormationId;
+        let data={
+
+        }
+        this.OnRegisterParticipant()
+        //this.formation.PostRegisterParticipant(res.besoinFormationId,data)
+        if (res && res.succeeded) {
           this.toastr.success('New user created!', 'Registration successful.');
+        }
+        else {
+          console.log("error")
         }
       },
 
@@ -196,26 +219,34 @@ searchFromArray(arr, regex) {
   
 
   OnRegisterParticipant() {
-    //console.log(item);
-    console.log(this.SelectedParticipant);
+    
+    console.log("this.SelectedParticipant",this.SelectedParticipant);
     console.log(this.formation.formModel.value.intitule_formation);
-    for (var val of this.SelectedParticipant) {
-      console.log(val);
-      this.formation.PostRegisterParticipant(val).subscribe(
-        (res: any) => {
-          if (res.succeeded) {
-            debugger;
-            this.resetForm();
-            this.toastr.success('Submitted successfully', 'User Accepted');
-            console.log("ok");
-            this.formation.refreshList();
-          }
-          else { this.toastr.success('Erreur', 'Erreur update'); }
-        });
-    }
+  
+    this.SelectedParticipant.map(val=>{
+  console.log("val",val);
+     this.formation.PostRegisterParticipant(this.IDF,val).subscribe(
+        (res: any) => {}
+        ,err=>        {
+           this.toastr.success('Erreur', 'Erreur update')
+          });
+    })
+    
 
+    this.toastr.success('Submitted successfully', 'User Accepted');
+    this.formation.refreshList();
+
+   
   }
+  
+resetAll(){
+  this.resetForm();
+  this.SelectedParticipant.length=0
+}
+
   RegisterNewParticipant(){
+  
+
     this.formation.postNewParticipant().subscribe(
       (res: any) => {
         if (res.succeeded) {
@@ -224,9 +255,9 @@ searchFromArray(arr, regex) {
         }
       },
 
-    );
+   );
     this.formation.refreshList();
-    this.formation.ParticipantModel.reset();
+    // this.formation.ParticipantModel.reset();
     
   }
 

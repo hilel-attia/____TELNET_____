@@ -6,6 +6,7 @@ using ProcessusFormation.Data;
 using ProcessusFormation.Models.Formation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProcessusFormation.Controllers.Formation
 {
@@ -53,25 +54,38 @@ namespace ProcessusFormation.Controllers.Formation
         //ajouter un participant a une formation bien determiner ; id=id de la formation ; Name= name de participant
         [HttpPost]
         [Route("EditParticipantToFormation/{id}")]
-        public async Task<ActionResult> AddParticipantToFormationAsync(string id, string ParticipantId)
+        public async Task<ActionResult<Formation>> AddParticipantToFormationAsync(string id, string ParticipantId)
         {
-          // Name = "hana";
-            var Formation = await _context.BesoinFormationModels.FindAsync(id);
-           // var part = await _context.Participants.FindAsync(Name);
-            //ici bech nzid participant ala formation d'identifiant id
-           
-           Formation.ParticipantFormations = new List<ParticipantFormation>
-           { 
+
+            try
+            {
+                var Formation = await _context.BesoinFormationModels.FindAsync(id);
+
+                if (Formation != null)
+                {
+                    Formation.ParticipantFormations = new List<ParticipantFormation>
+           {
               new ParticipantFormation()
             {    BesoinFormationId=id,
                  ParticipantId = ParticipantId
            } };
-            _context.SaveChanges();   
-           // Add(Name); //AddToRoleAsync(applicationUser, RoleName);
+                    _context.SaveChanges();
 
-            // var result = await _userManager.AddToNormalizedRoleName(applicationUser, RoleName);
-            //    normalizedRoleName
-            return Ok();
+
+                    return Ok();
+
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+      
+
 
         }
         //get les participant de la formation d'id =id
