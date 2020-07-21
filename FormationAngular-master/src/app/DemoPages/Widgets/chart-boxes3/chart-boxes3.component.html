@@ -255,18 +255,8 @@
   </div>
   </form>
 </div>
+
 <!-- Editable table -->
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -291,7 +281,7 @@
         <td  >{{domaine.nomDomaine}}</td>
         <td >
           
-          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="onDelete(domaine.id)">
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="onDelete(domaine.DomaineId)">
             <i class="pe-7s-trash btn-icon-wrapper"> </i>
           </button>
    
@@ -345,9 +335,9 @@
                          </td>
                          <div class="form-group ">
                          <td class="text-center" > 
-                 <!--[(ngModel)]="{{domaine.nomDomaine}}" name="userName"-->     
-                      <input    class="form-control" [(ngModel)]="competence.formData.nomDomaine"
-                          placeholder="" formControlName="nomDomaine" name="nomDomaine" >
+                 <!-- [(ngModel)]="{{domaine.nomDomaine}}" name="userName"      -->
+                      <input    class="form-control" [(ngModel)]="competence.formData.NomDomaine"
+                          placeholder="" formControlName="NomDomaine" name="NomDomaine" >
                          </td>
                        
                         </div>
@@ -407,7 +397,9 @@
        </div>
          
          
-         
+       
+       
+
          
          </div>
 

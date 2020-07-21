@@ -23,7 +23,7 @@ import { Users } from '../Models/users.model';
         this.http.get('https://localhost:44385/api/Domaine/GetAllDomaines').toPromise().then(
           res=>{
             this.DomaineList = res as Domaine[];
-            console.log(this.DomaineList);
+            console.log("alldomaines",this.DomaineList);
          //  this.users = data.json();
          
           }

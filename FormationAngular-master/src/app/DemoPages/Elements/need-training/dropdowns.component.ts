@@ -214,6 +214,7 @@ IDF : any;
 
     );
     this.formation.formModel.reset();
+    this.SelectedParticipant.length=0
   }
 
   

@@ -15,7 +15,7 @@ namespace ProcessusFormation.Controllers.Formation
     public class ParticipantController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-       /// private Database Database { get; set; }
+       // private Database Database { get; set; }
 
         public ParticipantController(ApplicationDbContext context)
         {
@@ -70,6 +70,7 @@ namespace ProcessusFormation.Controllers.Formation
                  ParticipantId = ParticipantId
            } };
                     _context.SaveChanges();
+
 
 
                     return Ok();
