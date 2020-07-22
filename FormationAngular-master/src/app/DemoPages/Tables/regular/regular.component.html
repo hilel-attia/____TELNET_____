@@ -10,10 +10,11 @@
                 <th>
                   User
                 </th>
-                <th *ngFor="let domaine of competence.DomaineList" class="text-center"
-                  [hidden]="!competence.DomaineList.length">
+                <ng-container *ngFor="let domaine of competence.DomaineList">
+                  <th *ngIf="domaine.labels && domaine.labels.length>0" class="text-center"
+                    [hidden]="!competence.DomaineList.length">
 
-                  {{domaine.nomDomaine}}
+                    {{domaine.nomDomaine}}
 
               <tr class="text-center">
                 <th *ngFor="let label of competence.LabeList" [hidden]="domaine.domaineId!=label.domaineId ">
@@ -24,6 +25,7 @@
               </th>
               </tr>
               </th>
+              </ng-container>
               </tr>
             </thead>
             <!-- end head -->
@@ -33,17 +35,18 @@
               <tr *ngFor="let item of competence.usersTrue ">
                 <th scope="row"> {{item.userName}} {{item.fullName}}
                 </th>
-                <td *ngFor="let domaine of competence.DomaineList" class="text-center">
-              <tr>
+                <ng-container *ngFor="let domaine of competence.DomaineList">
+                  <td *ngIf="domaine.labels && domaine.labels.length>0" class="text-center">
+                <tr>
                 <th>
-              <tr class="text-center">
+                <tr class="text-center">
                 <th *ngFor="let label of competence.LabeList" [hidden]="domaine.domaineId!=label.domaineId ">
-                  <div class="form-control" style="width: 60px;">
-                  </div>
+                <div class="form-control" style="width: 60px;">
+                </div>
                 </th>
-              </tr>
-              </tr>
-              </td>
+                </tr>
+                </tr>
+                </td></ng-container>
             </tbody>
             <!-- End body -->
           </table>
