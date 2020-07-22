@@ -56,20 +56,19 @@ export class RegularComponent implements OnInit {
   ngOnInit() {
     this.competence.getAllUsersTrue();
     this.competence.GetAllLabels();
-    // this.competence.GetAllDomaine();
-    // this.nbOcc('c6105d15-fd69-4158-8652-6c86c17ef207');
-
-   
+    console.clear()
   }
-  
- 
-       
-  nbOcc(UserId){
-    this.competence.GetLabel(UserId);
-    // for(var i=0;i<this.competence.UserLabelList.length;i++){
-    //      console.log("this.competence.UserLabelList",this.competence.UserLabelList[i]);
-    // }
-  
+
+  getUserLabelSum(user,label){
+    let userLabObj = user.occ[label.nomLabel]
+    console.log("*********** userLabObj: ",userLabObj)
+    let sum = 0
+    if (userLabObj) {
+      sum = userLabObj.sum
+    }
+    console.log("*********** sum: ",sum)
+
+    return sum
   }
 
   getItems( id) {

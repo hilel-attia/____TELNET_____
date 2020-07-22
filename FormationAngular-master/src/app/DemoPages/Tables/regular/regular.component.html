@@ -32,16 +32,17 @@
 
             <!-- body -->
             <tbody>
-              <tr *ngFor="let item of competence.usersTrue ">
-                <th scope="row"> {{item.userName}} {{item.fullName}}
+              <tr *ngFor="let user of competence.usersTrue ">
+                <th scope="row"> {{user.userName}} {{user.fullName}}
                 </th>
                 <ng-container *ngFor="let domaine of competence.DomaineList">
                   <td *ngIf="domaine.labels && domaine.labels.length>0" class="text-center">
                 <tr>
                 <th>
-                <tr class="text-center">
+                <tr *ngIf="user" class="text-center">
                 <th *ngFor="let label of competence.LabeList" [hidden]="domaine.domaineId!=label.domaineId ">
                 <div class="form-control" style="width: 60px;">
+                  {{getUserLabelSum(user,label)}}
                 </div>
                 </th>
                 </tr>
