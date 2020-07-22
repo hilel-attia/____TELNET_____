@@ -19,16 +19,7 @@ import { Users } from '../Models/users.model';
     LabeList:Labels[]
     LabeList1:Labels[]
     UserId: string;
-    GetAllDomaine(){
-        this.http.get('https://localhost:44385/api/Domaine/GetAllDomaines').toPromise().then(
-          res=>{
-            this.DomaineList = res as Domaine[];
-            console.log("alldomaines",this.DomaineList);
-         //  this.users = data.json();
-         
-          }
-        )
-      }
+
       user:Users;
       getUser(UserId){
         this.http.get('https://localhost:44385/api/Metier/Getuser/'+UserId).subscribe(
@@ -63,13 +54,54 @@ import { Users } from '../Models/users.model';
           }
         )
       }
-      UserLabelList: Labels[];
+
+      GetLabell(UserId){
+       return this.http.get(`https://localhost:44385/api/Metier/GetAllUserLabel/`+UserId)
+      }
+
+
+
+
+      UserLabelList: Labels[]; 
+     occ: any[] = []
       GetLabel(UserId){
        
-        this.http.get('https://localhost:44385/api/Metier/GetAllUserLabel/'+UserId).toPromise().then(
+        this.http.get(`https://localhost:44385/api/Metier/GetAllUserLabel/`+UserId).toPromise().then(
           res=>{
             this.UserLabelList = res as Labels[];
-            console.log(this.UserLabelList[0]);
+            
+              // liste tous labels 
+              for(var j=0;j< this.LabeList.length;j++){
+                console.log("liste de tous labels ",this.LabeList[j].labelId)
+             }
+             for(var i=0;i< this.UserLabelList.length;i++){
+              console.log("UserLabelList",this.UserLabelList[i].labelId)
+             }
+            
+            // liste tous labels 
+            for(var j=0;j<this.LabeList.length;j++){
+              //console.log("liste de tous labels ",this.LabeList[j].labelId)
+               //parcour list label user
+              let count=0;
+              for(var i=0;i< this.UserLabelList.length;i++){
+              if( this.LabeList[j].labelId == this.UserLabelList[i].labelId)
+                 count ++;
+                // console.log("count",count)
+                // console.log("UserLabelList",this.UserLabelList[i].labelId)
+              }
+              if(count==0)
+              {
+                this.occ[this.occ.length]='X';
+              }
+              else{
+                this.occ[this.occ.length]=count;
+              }
+
+             }
+             console.log("occ",this.occ)
+          
+
+            //console.log("UserLabelList",this.UserLabelList[0].labelId);
          //  this.users = data.json();
          
           }
@@ -80,7 +112,25 @@ import { Users } from '../Models/users.model';
         this.http.get('https://localhost:44385/api/Label/GetAllLabels').toPromise().then(
           res=>{
             this.LabeList = res as Labels[];
-            console.log(this.LabeList);
+            console.log("this.LabeList **********",this.LabeList);
+         //  this.users = data.json();
+         this.GetAllDomaine()
+          }
+        )
+      }
+
+
+      GetAllDomaine(){
+
+        this.http.get('https://localhost:44385/api/Domaine/GetAllDomaines').toPromise().then(
+          res=>{
+            this.DomaineList = res as Domaine[];
+            console.log("alldomaines *********",this.DomaineList);
+            this.DomaineList.map((domain:any) =>{
+              if (this.LabeList) {
+                domain.labels = this.LabeList.filter(x=>x.domaineId == domain.domaineId)
+              }
+            })
          //  this.users = data.json();
          
           }
@@ -181,13 +231,34 @@ import { Users } from '../Models/users.model';
         return this.http.delete('https://localhost:44385/api/Label/DeleteAllLabels' + this.Idlab);
        }
 
-       usersTrue:Users[];
+       usersTrue:any=[];
        readonly UrlUserTrue = 'https://localhost:44385/api/ApplicationUser/AllUsersTrue';
        getAllUsersTrue(){
         this.http.get(this.UrlUserTrue).toPromise().then(
-          res=>{
-            this.usersTrue = res as Users[];
-           console.log(this.usersTrue);
+          (res:any)=>{
+            this.usersTrue = res
+           console.log("before",this.usersTrue);
+
+            this.usersTrue.map(user=>{
+              let obj = {}
+              this.GetLabell(user.id)
+              .subscribe((res:any)=>{
+                user.labelsDomain =  res
+                //here work begins
+                res.map(lab=>{
+                  if (!obj[lab.nomLabel]) {
+                    obj[lab.nomLabel] = {sum : 1,domaineId : lab.domaineId, labelId : lab.labelId}
+                  }else{
+                    obj[lab.nomLabel]["sum"] = obj[lab.nomLabel]["sum"] +1 
+                  }
+                  user.occ = obj
+
+                })
+              })
+            })
+            console.log("after",this.usersTrue);
+
+
          //  this.users = data.json();
           }
         )

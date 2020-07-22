@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { CompetenceService } from '../../shared/competence.service';
+import { AngularFontAwesomeComponent } from 'angular-font-awesome';
 
 interface Country {
   name: string;
@@ -55,16 +56,30 @@ export class RegularComponent implements OnInit {
   ngOnInit() {
     this.competence.getAllUsersTrue();
     this.competence.GetAllLabels();
-    this.competence.GetAllDomaine();
+    // this.competence.GetAllDomaine();
+    // this.nbOcc('c6105d15-fd69-4158-8652-6c86c17ef207');
+
    
   }
-
+  
+ 
+       
+  nbOcc(UserId){
+    this.competence.GetLabel(UserId);
+    // for(var i=0;i<this.competence.UserLabelList.length;i++){
+    //      console.log("this.competence.UserLabelList",this.competence.UserLabelList[i]);
+    // }
+  
+  }
 
   getItems( id) {
     return this.competence.LabeList.filter((item) =>
      item.domaineId === id);
   }
   isShow = false;
+
+
+
  
   toggleDisplay() {
     this.isShow = !this.isShow;
