@@ -60,13 +60,16 @@ export class RegularComponent implements OnInit {
   }
 
   getUserLabelSum(user,label){
-    let userLabObj = user.occ[label.nomLabel]
-    console.log("*********** userLabObj: ",userLabObj)
     let sum = 0
-    if (userLabObj) {
-      sum = userLabObj.sum
+    if (user && user.occ ) {
+      let userLabObj = user.occ[label.nomLabel]
+      console.log("*********** userLabObj: ",userLabObj)
+      if (userLabObj) {
+        sum = userLabObj.sum
+      }
+      console.log("*********** sum: ",sum)
+      
     }
-    console.log("*********** sum: ",sum)
 
     return sum
   }
