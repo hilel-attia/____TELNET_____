@@ -263,9 +263,9 @@ namespace ProcessusFormation.Controllers
 
             var user = await _userManager.FindByIdAsync(id);
             //   var userRoles = await _userManager.GetRolesAsync(user);
-            await _userManager.RemoveFromRoleAsync(user, model.Name);
+            await _userManager.RemoveFromRoleAsync(user, model.RoleName);
             // var roles = _roleManager.Roles;
-            return Ok();
+            return Ok(new { message = "delted succefully" });
         }
 
 

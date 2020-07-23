@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\projects\\ENSI\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj": {}
+    "C:\\Users\\Foufa\\Desktop\\PFE\\RIM-TELNET\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\projects\\ENSI\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj": {
+    "C:\\Users\\Foufa\\Desktop\\PFE\\RIM-TELNET\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\projects\\ENSI\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj",
+        "projectUniqueName": "C:\\Users\\Foufa\\Desktop\\PFE\\RIM-TELNET\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj",
         "projectName": "ProcessusFormation",
-        "projectPath": "C:\\Users\\user\\projects\\ENSI\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\projects\\ENSI\\ProcessusFormation-master\\ProcessusFormation\\obj\\",
+        "projectPath": "C:\\Users\\Foufa\\Desktop\\PFE\\RIM-TELNET\\ProcessusFormation-master\\ProcessusFormation\\ProcessusFormation.csproj",
+        "packagesPath": "C:\\Users\\Foufa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Foufa\\Desktop\\PFE\\RIM-TELNET\\ProcessusFormation-master\\ProcessusFormation\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Foufa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -98,7 +101,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

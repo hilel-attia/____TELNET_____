@@ -56,14 +56,21 @@ export class UsersListesComponent implements OnInit {
   }
 
 
-
+ rolee: any;
 
   DeleteRole(Role,id){
-    console.log(Role)
+
+    console.log("id user ",id)
+    console.log("Role",Role)
+    console.log(this.notification.role)
+
+
+
     this.notification.deleteUserRole(Role,id).subscribe(
       res => {
-      
-        this.toastr.info('', 'succé');
+        let index = this.notification.role.findIndex(x=>x==Role)
+        this.notification.role.splice(index,1)
+        this.toastr.info('', 'role effacer avec succés');
        // this.notification.refreshList1();
       },
       err => {
