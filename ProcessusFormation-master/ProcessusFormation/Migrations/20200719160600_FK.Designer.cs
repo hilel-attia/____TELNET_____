@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProcessusFormation.Data;
 
 namespace ProcessusFormation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200719160600_FK")]
+    partial class FK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -585,18 +587,13 @@ namespace ProcessusFormation.Migrations
 
             modelBuilder.Entity("ProcessusFormation.Models.Formation.ParticipantFormation", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<string>("BesoinFormationId");
 
                     b.Property<string>("ParticipantId");
 
                     b.Property<string>("ParticipantModelParticipantId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("BesoinFormationId");
+                    b.HasKey("BesoinFormationId", "ParticipantId");
 
                     b.HasIndex("ParticipantId");
 
@@ -721,11 +718,13 @@ namespace ProcessusFormation.Migrations
                 {
                     b.HasOne("ProcessusFormation.Models.Formation.BesoinFormationModel", "BesoinFormationModel")
                         .WithMany("ParticipantFormations")
-                        .HasForeignKey("BesoinFormationId");
+                        .HasForeignKey("BesoinFormationId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ProcessusFormation.Models.Formation.ParticipantModel", "ParticipantModel")
                         .WithMany("ParticipantFormations")
-                        .HasForeignKey("ParticipantId");
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ProcessusFormation.Models.Formation.ParticipantModel")
                         .WithMany("BesoinFormationModel")

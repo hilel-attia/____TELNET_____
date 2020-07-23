@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿    using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +15,7 @@ namespace ProcessusFormation.Models
         }
         public string Access { get; set; }
         public int id { get; set; }
-        [Required]
+       
         public string RoleName { get; set; }
         [Required]
         public IList<string> Roles { get; internal set; }

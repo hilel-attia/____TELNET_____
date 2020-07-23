@@ -26,8 +26,9 @@ export class FormationService {
 
     })
    }
+   TestFormation: any;
   BesFormation: Besoin_Formation[];
-  participants:Participant[];
+
   ListeFormateurs:Formateur[];
   besoins:Besoin_Collecte[]
   formData: Besoin_Formation;
@@ -77,7 +78,7 @@ ParticipantModel=this.Part.group({
 })
 
   formeModel = this.FB.group({
-    id:[""],
+    besoinFormationId:[""],
     intitule_Formation: ['', Validators.required],
     justification_du_besoin: ['', Validators.required],
     nombre_de_participants: ['', Validators.required],
@@ -102,7 +103,7 @@ ParticipantModel=this.Part.group({
 
  });
 
- 
+   
 
 
 
@@ -122,23 +123,26 @@ ParticipantModel=this.Part.group({
       Nombre_de_participants: this.formModel.value.Nombre_de_participants,
       Activite: this.formModel.value.Activite,
       Priorite: this.num,
+     
   
-  };
+      };
+  console.log("our bodyyyyyy",body);
   this.name=body.Intitule_Formation
   console.log(body.Intitule_Formation);
   console.log(body.Justification_du_besoin);
   console.log(body.Nombre_de_participants);
   console.log(body.Activite);
   console.log(this.num);
-     return this.http.post(this.BaseURI + '/BesoinFormation/RegisterFormation', body);
+     return this.http.post(this.BaseURI +'/Formation', body);
+     
 }
 
 
 
 
 
-PostRegisterParticipant(i){
-  return this.http.post(this.BaseURI + '/Participant/EditeFormationToParticipant',i);
+PostRegisterParticipant(idFormation,idParticipant){
+  return this.http.post(this.BaseURI + `/Participant/EditParticipantToFormation/${idFormation}?ParticipantId=${idParticipant}`,null);
 }
 
 
@@ -146,21 +150,24 @@ PostRegisterParticipant(i){
 
 
 
-  registerParticipant(val){
+  // registerParticipant(val){
 
 
-    var participant = {
-      nom: this.formModele.value.nom,
-      prenom: this.formModele.value.prenom,
+  //   var participant = {
+  //     nom: this.formModele.value.nom,
+  //     prenom: this.formModele.value.prenom,
     
-  };
+  // };
   
-  console.log(participant.nom);
-  console.log(participant.prenom);
+//   console.log(participant.nom);
+//   console.log(participant.prenom);
  
- console.log(this.name);
-  return this.http.post(this.BaseURI + '/Participant/EditeFormationToParticipant/',this.name, val);
-  }
+//  console.log(this.name);
+//   return this.http.post(this.BaseURI + '/Participant/EditParticipantToFormation',this.name, val);
+//   }
+  // ajouterPartToForation(data){
+  //    return this.http.post('https://localhost:44385/api/partFormation',data);
+  // }
  
 
 
@@ -210,13 +217,14 @@ refreshList(){
   this.http.get(this.BaseURI + '/Formateur/GetAllFormateurs')//false
   .toPromise()
   .then(res => this.BesFormation= res as Besoin_Formation[]);
-
-  this.http.get(this.BaseURI + '/ApplicationUser/AllUsersTrue')//false https://localhost:44385/api/ApplicationUser/AllUsersTrue
-  .toPromise()
-  .then(res => this.participants= res as Participant[]);
+ 
+  
+   
+  // this.http.get(this.BaseURI + '/ApplicationUser/AllUsersTrue')//false https://localhost:44385/api/ApplicationUser/AllUsersTrue
+  // .toPromise()
+  // .then(res => this.participants= res as Participant[]);
  
 }
-
 
 
 
@@ -247,25 +255,26 @@ postNewParticipant(){
 
 deleteOrganisme(id) {
   console.log(id);
-  return this.http.delete(this.BaseURI + '/Formateur/deleteFormateur/'+ id);
+  return this.http.delete(this.BaseURI + '/Formateur/deleteFormateur'+ id);
 }
 
 
 
 deleteBesoinCollecte(id){
   console.log(id);
-  return this.http.delete(this.BaseURI + '/BesoinCollecte/deleteBesoinCollecte/'+ id);
+  return this.http.delete(this.BaseURI + '/BesoinCollecte/deleteBesoinCollecte'+ id);
 }
 
 getAllFormation(){
   this.http.get(this.BaseURI  + '/BesoinFormation/GetAllBesoin').toPromise().then(
     res=>{
       this.BesFormation = res as Besoin_Formation[];
-      console.log(this.BesFormation);
+      console.log("this.BesFormation",this.BesFormation);
    //  this.users = data.json();
     }
   )
 }
+
 
 //ici on fait les get des besoins qui son réalisé
 GetAllBesoinCollecte(){
@@ -278,15 +287,11 @@ GetAllBesoinCollecte(){
   )
 }
 
+participants:any;
+
 GetAllParticipant(){
-  this.http.get(this.BaseURI  + '/ApplicationUser/AllUsersTrue').toPromise().then(
-    res=>{
-      this.participants = res as Participant[];
-      console.log(this.participants);
-   //  this.users = data.json();
-   
-    }
-  )
+return this.http.get(this.BaseURI +'/Participant/GetAllParticipant')
+
 }
 
 
@@ -325,9 +330,14 @@ PostEtatFormation(){
     Date_EvaluationFroid :this.formeModel.value.Date_EvaluationFroid,
     Evaluation_Manquantes :this.formeModel.value.Evaluation_Manquantes
    }
-   return this.http.post('https://localhost:44385/api/EtatFormation/RegisterEtatFormation', Etat);
+   return this.http.post('https://localhost:44385/api/EtatFormation/RegisterEtatFormation',Etat)
 }
 
+
+// getAllFormations(){
+//   return this.http.post('/BesoinFormation/GetAllBesoin');
+// }
+listeparticipants: Participant[]
 
 getUserList() {
   let headers = new HttpHeaders();

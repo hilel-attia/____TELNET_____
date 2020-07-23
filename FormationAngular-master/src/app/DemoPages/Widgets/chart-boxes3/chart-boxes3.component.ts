@@ -159,8 +159,8 @@ export class ChartBoxes3Component implements OnInit {
     if (form != null)
       form.form.reset();
     this.competence.formData = {
-      domaineId:null,
-      nomDomaine: '',
+      DomaineId:null,
+      NomDomaine: '',
 
     }
   }
@@ -255,7 +255,7 @@ export class ChartBoxes3Component implements OnInit {
   populateForm(item: Domaine) {
     this.competence.formData = Object.assign({}, item);
   //  this.competence.getUserRole(item.id);
-    console.log(item.domaineId);
+    console.log(item.DomaineId);
   }
   onSubmit(form: NgForm,domaineId){
     this.competence.ModifierDomaine(domaineId).subscribe(

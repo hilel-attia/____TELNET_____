@@ -1,6 +1,6 @@
 export class Participant {
     id: string
-    nom:string
+    Nom:string
     prenom: string
    
     }

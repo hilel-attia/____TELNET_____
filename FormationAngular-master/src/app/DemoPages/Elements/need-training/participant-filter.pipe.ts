@@ -15,7 +15,7 @@ export class ParticipantFilterPipe implements PipeTransform {
     return participans;
 }
 return participans.filter(Participant => 
-    Participant.nom.toLowerCase().indexOf(searchTerm.toLowerCase()) !==-1
+    Participant.Nom.toLowerCase().indexOf(searchTerm.toLowerCase()) !==-1
     );
 
 //searchText = searchText.toLocaleLowerCase();

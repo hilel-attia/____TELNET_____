@@ -8,7 +8,7 @@ import {rootReducer, ArchitectUIState} from './ThemeOptions/store';
 import {ConfigActions} from './ThemeOptions/store/config.actions';
 import {AppRoutingModule} from './app-routing.module';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
-import { UserService } from 'C:/Users/LENOVO/Desktop/architectui-angular-free-theme/architectui-angular-free-theme/src/app/DemoPages/shared/user.service';
+import { UserService } from 'src/app/DemoPages/shared/user.service';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';

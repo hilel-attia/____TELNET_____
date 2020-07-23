@@ -134,8 +134,8 @@
                          </td>
                        <td >
                       
-                         <button (click)="i=!j" (click)="RegisterUserRole(item.id, role)">
-                           <i [ngClass]="i ? ' fa fa-times': 'fa fa-check'" ></i>
+                         <button *ngIf="notification.role" (click)="RegisterUserRole(item.id, role)">
+                           <i [ngClass]="notification.role.includes(role) ? ' fa fa-times': 'fa fa-check'" ></i>
                          </button>
                         
                        </td>

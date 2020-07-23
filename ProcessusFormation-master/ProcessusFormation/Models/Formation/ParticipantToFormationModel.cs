@@ -9,8 +9,8 @@ namespace ProcessusFormation.Models.Formation
     public class ParticipantToFormationModel
     {
         public string Id { get; set; }
-        public string IdFormation { get; set; }
-        [ForeignKey("Id")]
+        public string BesoinFormationId { get; set; }
+      
         public ApplicationUser ApplicationUsers { get; set; }
         public BesoinFormationModel BesoinFormation { get; set; }
     }
